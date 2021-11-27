@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="org.example.proj01.LoginEntity" table="login" schema="db">
+        <composite-id mapped="true" class="org.example.proj01.LoginEntityPK">
+            <key-property name="idlogin">
+                <column name="idlogin" sql-type="int"/>
+            </key-property>
+            <key-property name="usr">
+                <column name="usr" sql-type="varchar(45)" length="45"/>
+            </key-property>
+            <key-property name="pass">
+                <column name="pass" sql-type="varchar(45)" length="45"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
