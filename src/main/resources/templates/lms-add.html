@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>LMS Add course</h1>
+    <csrf disabled="true"/>
+    <form action="/lms/add" method="post">
+        <input type="text" name="title" placeholder="Enter course name" class="form-control" ><br>
+        <input type="text" name="anons" placeholder="Enter course anons" class="form-control" ><br>
+        <textarea name="full_text" placeholder="Enter course page text" class="form-control" ></textarea><br>
+        <button type="submit" class="btn btn-success">Add page</button>
+        <!--csrf-токен добавить на форму-->
+        <input type="hidden"
+               name="${_csrf.parameterName}"
+               value="${_csrf.token}"/>
+    </form>
+
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
