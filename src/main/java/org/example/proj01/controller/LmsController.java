@@ -39,6 +39,24 @@ public class LmsController {
         // return "redirect:/lms";
         return "lms-main";
     }
+    /* edit post in table */
+    @PostMapping("/lms/{id}/edit")
+    public String lmsPostUpdate(@PathVariable(value = "id") long id, @RequestParam String title, @RequestParam String anons, @RequestParam String full_text, Model model) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setTitle(title);
+        post.setAnons(anons);
+        post.setFull_text(full_text);
+        postRepository.save(post);
+        return "redirect:/lms";
+    }
+    /* delete post from table */
+    @PostMapping("/lms/{id}/remove")
+    public String lmsPostDelete(@PathVariable(value = "id") long id, Model model) {
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
+        return "redirect:/lms";
+    }
+
 
     @GetMapping("/lms/{id}")
     public String lmsDetails(@PathVariable(value = "id") long id, Model model) {
@@ -50,6 +68,18 @@ public class LmsController {
         post.ifPresent(res::add);
         model.addAttribute("post", res);
         return "lms-details";
+    }
+
+    @GetMapping("/lms/{id}/edit")
+    public String lmsEdit(@PathVariable(value = "id") long id, Model model) {
+        if(!postRepository.existsById(id)) {
+            return "redirect:/lms";
+        }
+        Optional<Post> post = postRepository.findById(id);
+        ArrayList<Post> res = new ArrayList<>();
+        post.ifPresent(res::add);
+        model.addAttribute("post", res);
+        return "lms-edit";
     }
 
 }
